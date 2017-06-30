@@ -10,15 +10,15 @@ ProjectPath="$2"
 Configuration="$3"
 Export="$4"
 
-OutputPath="/Users/abyss/Desktop/outputs"
+OutputPath="/Users/abyss/Desktop/outputs/$(date +"%m_%d")"
 TOKEN_FIR="e9bf520535dbb08e8aef052cf6aa5558"
 
 now=$(date +"%m_%d_%H_%M")
 
 WorkSpace="$ProjectPath/$Scheme.xcworkspace"
-AchivePath="$OutputPath/$Scheme_${now}.xcarchive"
-IpaName="$Scheme_${now}.ipa"
-IpaPath="$OutputPath/$Scheme_${now}.ipa"
+AchivePath="$OutputPath/${Scheme}_${now}.xcarchive"
+IpaName="${Scheme}_${now}.ipa"
+IpaPath="$OutputPath/${Scheme}_${now}.ipa"
 
 echo "Input Path  :$ProjectPath"
 echo "Output Path :$OutputPath"
@@ -28,7 +28,7 @@ fastlane gym --workspace ${WorkSpace} --scheme ${Scheme} --clean --configuration
 echo "打包完毕！"
 echo "准备上传Fir.im"
 
-fir publish ${ipa_path} -T "$TOKEN_FIR" -c "${commit_msg}"
+fir publish ${IpaPath} -T "$TOKEN_FIR" -c "${commit_msg}"
 
 echo "完成！"
 echo "总共耗时:${SECONDS}秒"
