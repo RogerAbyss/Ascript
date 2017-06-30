@@ -41,7 +41,7 @@ scheme = projects[projectTag]["scheme"]
 
 # Make Shell
 # system "cd #{path}"
-shell = "cd #{path} && sh build.sh #{scheme} #{out} #{path} #{fir_token}"
+shell = "cd #{path} && fastlane scheme:#{scheme} out:#{out} project:#{path} fir_token:#{fir_token}"
 puts "\033[31m☞准备执行:" + shell + "\033[0m"
 puts "☞\n"
 system shell 

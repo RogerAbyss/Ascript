@@ -1,0 +1,175 @@
+fastlane_version "2.43.0"
+default_platform :ios
+
+platform :ios do
+
+	before_all do
+		git_pull
+		pod_update
+	end
+
+	####################################################################################################
+	####################################################################################################
+
+	desc '正式版,上传Apptore'
+	lane :release do |options|
+
+		scheme				= options[:scheme]
+		outputPath		 	= options[:out]
+		projectPath			= options[:project]
+
+		version    			= options[:version]
+		build 				= options[:build]
+
+		output_name 		= "#{scheme}_#{Time.now.strftime('%H%M')}.ipa"
+		plist_drectory      = "#{projectPath}/#{scheme}/info.plist"
+		tmp				 	= "#{projectPath}/fastlane/tmp"
+		workspace		    = "#{projectPath}/#{scheme}.xcworkspace"
+		
+   	 	increment_build_number
+   	 	increment_version_number
+
+   	 	gym(
+   	 		workspace: workspace,
+   	 		scheme: scheme, 
+   	 		clean: true, 
+   	 		output_directory: outputPath,
+   	 		output_name: output_name, 
+   	 		export_method: 'app-store',
+   	 		configuration: "release"
+   	 		)
+
+   	 	deliver(force: false, skip_metadata: true, skip_screenshots: true)
+  	end
+
+  	####################################################################################################
+  	####################################################################################################
+
+	desc '测试版,上传Fir'
+	lane :debug do |options|
+
+		scheme				= options[:scheme]
+		outputPath		 	= options[:out]
+		projectPath			= options[:project]
+		fir_token			= options[:fir_token]
+
+		version    			= options[:version]
+		build 				= options[:build]
+
+		output_name 		= "#{scheme}_#{Time.now.strftime('%H%M')}.ipa"
+		plist_drectory      = "#{projectPath}/#{scheme}/info.plist"
+		tmp				 	= "#{projectPath}/fastlane/tmp"
+		workspace		    = "#{projectPath}/#{scheme}.xcworkspace"
+
+   	 	increment_build_number
+   	 	increment_version_number
+
+   	 	gym(
+   	 		workspace: workspace,
+   	 		scheme: scheme, 
+   	 		clean: true, 
+   	 		output_directory: outputPath,
+   	 		output_name: output_name, 
+   	 		export_method: 'ad-hoc',
+   	 		configuration: "debug"
+   	 		)
+
+   	 	system "fir publish #{outputPath}/#{output_name} -T #{fir_token} -c 'abyss自动上传'"
+	end
+
+	####################################################################################################
+	####################################################################################################
+
+	desc '预发布,上传Fir'
+	lane :beta do |options|
+		
+		scheme				= options[:scheme]
+		outputPath		 	= options[:out]
+		projectPath			= options[:project]
+		fir_token			= options[:fir_token]
+
+		version    			= options[:version]
+		build 				= options[:build]
+
+		output_name 		= "#{scheme}_#{Time.now.strftime('%H%M')}.ipa"
+		plist_drectory      = "#{projectPath}/#{scheme}/info.plist"
+		tmp				 	= "#{projectPath}/fastlane/tmp"
+		workspace		    = "#{projectPath}/#{scheme}.xcworkspace"
+
+   	 	increment_build_number
+   	 	increment_version_number
+
+   	 	gym(
+   	 		workspace: workspace,
+   	 		scheme: scheme, 
+   	 		clean: true, 
+   	 		output_directory: outputPath,
+   	 		output_name: output_name, 
+   	 		export_method: 'ad-hoc',
+   	 		configuration: "release"
+   	 		)
+
+   	 	system "fir publish #{outputPath}/#{output_name} -T #{fir_token} -c 'abyss自动上传'"
+	end
+
+	####################################################################################################
+	####################################################################################################
+
+	desc '检查工程(依赖、证书等)'
+	lane :refresh do |options|
+		git_pull
+		cocoapods
+
+		match(
+			type:"appstore",
+			git_url:"git@git.oschina.net:abyssroger/ppmatch.git",
+			readonly: true,
+		)
+		match(
+			type:"adhoc",
+			git_url:"git@git.oschina.net:abyssroger/ppmatch.git",
+			readonly: true,
+		)
+		match(
+			type:"development",
+			git_url:"git@git.oschina.net:abyssroger/ppmatch.git",
+			readonly: true,
+		)
+	end
+
+
+	####################################################################################################
+	####################################################################################################
+
+	desc '管理员调整工程(依赖、证书等)'
+	lane :setting do |options|
+		git_pull
+		cocoapods
+
+		match(
+			type:"appstore",
+			git_url:"git@git.oschina.net:abyssroger/ppmatch.git",
+			force_for_new_devices: true,
+			app_identifier:["com.XilianApp.zgxl","com.zgxl.app","com.zgxl.xiyipo","com.zgxl.xiyipoCQ"],
+		)
+		match(
+			type:"adhoc",
+			git_url:"git@git.oschina.net:abyssroger/ppmatch.git",
+			force_for_new_devices: true,
+			app_identifier:["com.XilianApp.zgxl","com.zgxl.app","com.zgxl.xiyipo","com.zgxl.xiyipoCQ"],
+		)
+		match(
+			type:"development",
+			git_url:"git@git.oschina.net:abyssroger/ppmatch.git",
+			force_for_new_devices: true,
+			app_identifier:["com.XilianApp.zgxl","com.zgxl.app","com.zgxl.xiyipo","com.zgxl.xiyipoCQ"],
+		)
+	end
+
+	desc 'Monkey测试'
+	lane :test do |options|
+	end
+end
+
+platform :android do
+end
