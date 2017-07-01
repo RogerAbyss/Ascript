@@ -6,7 +6,7 @@ smtp = {
  :port => 25, 
  :domain => 'qq.com', 
  :user_name => '492764029', 
- :password => "xfbjnudclefvbgei",
+ :password => "",
  :enable_starttls_auto => true,
  :openssl_verify_mode => 'none', 
 }
