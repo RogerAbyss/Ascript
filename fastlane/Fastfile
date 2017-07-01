@@ -74,7 +74,8 @@ platform :ios do
    	 		configuration: "debug"
    	 		)
 
-   	 	system "fir publish #{outputPath}/#{output_name} -T #{fir_token} -c 'abyss自动上传'"
+   	 	msg = "[自动上传v2.0],debug模式"
+   	 	system "fir publish #{outputPath}/#{output_name} -T #{fir_token} -c #{msg}"
 	end
 
 	####################################################################################################
@@ -109,7 +110,8 @@ platform :ios do
    	 		configuration: "release"
    	 		)
 
-   	 	system "fir publish #{outputPath}/#{output_name} -T #{fir_token} -c 'abyss自动上传'"
+   	 	msg = "[自动上传v2.0],beta模式"
+   	 	system "fir publish #{outputPath}/#{output_name} -T #{fir_token} -c #{msg}"
 	end
 
 	####################################################################################################
