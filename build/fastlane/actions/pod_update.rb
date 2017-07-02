@@ -3,7 +3,7 @@ module Fastlane
   module Actions
     class PodUpdateAction < Action
       def self.run(params)
-      	Actions.sh "pod update --no-repo-update --verbose"
+      	Actions.sh "pod install --no-repo-update --verbose"
         UI.current.log.info "Successfully pod updale ⬆️ ".green
       end
 

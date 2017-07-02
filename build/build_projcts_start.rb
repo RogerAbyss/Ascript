@@ -1,15 +1,15 @@
 # Project Choose ========================================
+require File.dirname(__FILE__)+'/config/config.rb'
+require "~/Desktop/Abyss/config_private.rb"
 
 puts "\n\n\n\n\n\n"
 puts "\033[31m☞请选择你要编译的项目？\n\033[0m"
 
 # setting ========================================
-projects = [{"name"=>"Xilian New","path"=>"/Users/abyss/Desktop/Dev/ZGXLNew/XilianApp","scheme"=>"XilianApp"},
-			{"name"=>"Xilian Old","path"=>"/Users/abyss/Desktop/Dev/ZGXLOld/囍联IOS","scheme"=>"testappdomain"},
-			{"name"=>"zgxl","path"=>"/Users/abyss/Desktop/Dev/FastlaneProj","scheme"=>"zgxl"},];
+projects = Abyss::Build::Config::PROJECTS
 
-out = "/Users/abyss/Desktop/outputs/#{Time.now.strftime('%m%d')}"
-fir_token = "e9bf520535dbb08e8aef052cf6aa5558"
+out = Abyss::Build::Config::OUTPUT_PATH
+fir_token = Abyss::Build::Config::FIR_TOKEN
 
 # setting ========================================
 count = 1
