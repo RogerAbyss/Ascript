@@ -3,38 +3,61 @@ require 'mail'
 require '~/Desktop/Abyss/config_private.rb'
 require '~/Desktop/script/build/config/config.rb'
 
-# 国内速度太慢，使用--no-repo-update节约大量的时间
 module Fastlane
   module Actions
     class EmailAction < Action
       def self.run(params)
 
-      	smtp = {
- 			:address => 'smtp.qq.com', 
- 			:port => 25, 
- 			:domain => 'qq.com', 
- 			:user_name => Abyss::Build::Config::QQ, 
- 			:password => Abyss::Build::Config::QQ_TOKEN,
- 			:enable_starttls_auto => true,
- 			:openssl_verify_mode => 'none', 
-		}
+        mode        = params[:mode]
+        scheme      = params[:scheme]
 
-		Mail.defaults { delivery_method :smtp, smtp}
+        title      = "#{scheme}.#{mode}发布了！"
 
-		mail = Mail.new do
- 			from Abyss::Build::Config::QQ + '@qq.com'
- 			to Abyss::Build::Config::EMAIL_SENDER
- 			subject Abyss::Build::Config::EMAIL_TITLE
-  			body Abyss::Build::Config::EMAIL_CONTENT
-		end
+        Actions.sh "git log --graph  --abbrev-commit --pretty=format:'%s    - %an(%cr)' -10 >report-git.txt"
+        file = File.read("report-git.txt")
 
-		mail.deliver!
+        smtp = {
+          :address => 'smtp.qq.com', 
+          :port => 25, 
+          :domain => 'qq.com', 
+          :user_name => Abyss::Build::Config::QQ, 
+          :password => Abyss::Build::Config::EMAIL_QQ_TOKEN,
+          :enable_starttls_auto => true,
+          :openssl_verify_mode => 'none', 
+        }
+
+        Mail.defaults { delivery_method :smtp, smtp}
+
+        mail = Mail.new do
+          from Abyss::Build::Config::QQ + '@qq.com'
+          to Abyss::Build::Config::EMAIL_SENDER
+          cc Abyss::Build::Config::EMAIL_CC
+          subject title
+          body Abyss::Build::Config::EMAIL_CONTENT + file
+        end
+
+        mail.deliver!
+
         UI.current.log.info "Successfully send e-mial ⬆️ ".green
-      end
+    end
 
       #####################################################
       # @!group Documentation
       #####################################################
+
+
+      def self.available_options
+        [
+          FastlaneCore::ConfigItem.new(key: :mode,
+                                       description: "您发布的模式(release/debug/beta)"),
+          FastlaneCore::ConfigItem.new(key: :scheme,
+                                       description: "scheme"),
+        ]
+      end
+
+      def self.return_value
+        # If you method provides a return value, you can describe here what it does
+      end
 
       def self.description
         "send e-mail"

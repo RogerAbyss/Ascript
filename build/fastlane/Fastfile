@@ -40,7 +40,10 @@ platform :ios do
    	 		)
 
    	 	deliver(force: false, skip_metadata: true, skip_screenshots: true)
-   	 	email
+   	 	email(mode:"release",scheme:scheme)
+
+   	 	git_add(path: '.')
+    	git_commit(path: '.', message: "自动发布 自动增长了版本号")
   	end
 
   	####################################################################################################
@@ -77,7 +80,10 @@ platform :ios do
 
    	 	msg = "[自动上传v2.0],debug模式"
    	 	system "fir publish #{outputPath}/#{output_name} -T #{fir_token} -c #{msg}"
-   	 	email
+   	 	email(mode:"debug",scheme:scheme)
+
+   	 	git_add(path: '.')
+    	git_commit(path: '.', message: "自动发布 自动增长了版本号")
 	end
 
 	####################################################################################################
@@ -114,7 +120,10 @@ platform :ios do
 
    	 	msg = "[自动上传v2.0],beta模式"
    	 	system "fir publish #{outputPath}/#{output_name} -T #{fir_token} -c #{msg}"
-   	 	email
+   	 	email(mode:"beta",scheme:scheme)
+
+   	 	git_add(path: '.')
+    	git_commit(path: '.', message: "自动发布 自动增长了版本号")
 	end
 
 	####################################################################################################
