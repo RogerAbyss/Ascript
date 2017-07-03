@@ -9,6 +9,8 @@ A lazy programmer`s scripts.
 关于自动化构建的脚本(ruby+shell)。
 主要基于fastlane实现，可以结合Docker+Kenkins自己部署整个软件从构建到测试的反复迭代过程。
 
+[fastlane文档](https://docs.fastlane.tools/actions/)
+
 ### Function(功能)
 
 它目前只支持IOS平台，尽快会支持Android.
@@ -65,3 +67,10 @@ path请根据自己的环境配置
 5. 运行
 双击build.sh
 
+### Helper (帮助)
+
+1. 关于ruby/rubygem/ 环境安装
+2. 安装Mail ``gem install Mail``
+3. 安装fastlane ``gem install fastlane``
+4. 安装fir-cli ``gem install fir-cli``
+5. 关于agvtool 参考[官方文档](https://developer.apple.com/library/content/qa/qa1827/_index.html)
