@@ -65,3 +65,10 @@ path请根据自己的环境配置
 5. 运行
 双击build.sh
 
+### Helper (帮助)
+
+1. 关于ruby/rubygem/ 环境安装
+2. 安装Mail ``gem install Mail``
+3. 安装fastlane ``gem install fastlane``
+4. 安装fir-cli ``gem install fir-cli``
+5. 关于agvtool 参考[官方文档](https://developer.apple.com/library/content/qa/qa1827/_index.html)
