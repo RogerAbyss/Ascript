@@ -9,6 +9,8 @@ A lazy programmer`s scripts.
 关于自动化构建的脚本(ruby+shell)。
 主要基于fastlane实现，可以结合Docker+Kenkins自己部署整个软件从构建到测试的反复迭代过程。
 
+[fastlane文档](https://docs.fastlane.tools/actions/)
+
 ### Function(功能)
 
 它目前只支持IOS平台，尽快会支持Android.
