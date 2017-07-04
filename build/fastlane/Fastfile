@@ -36,7 +36,7 @@ platform :ios do
    	 		output_directory: outputPath,
    	 		output_name: output_name, 
    	 		export_method: 'app-store',
-   	 		configuration: "release"
+   	 		configuration: "Release"
    	 		)
 
    	 	deliver(force: false, skip_metadata: true, skip_screenshots: true)
@@ -75,7 +75,7 @@ platform :ios do
    	 		output_directory: outputPath,
    	 		output_name: output_name, 
    	 		export_method: 'ad-hoc',
-   	 		configuration: "debug"
+   	 		configuration: "Debug"
    	 		)
 
    	 	msg = "[自动上传v2.0],debug模式"
@@ -115,7 +115,7 @@ platform :ios do
    	 		output_directory: outputPath,
    	 		output_name: output_name, 
    	 		export_method: 'ad-hoc',
-   	 		configuration: "release"
+   	 		configuration: "Release"
    	 		)
 
    	 	msg = "[自动上传v2.0],beta模式"

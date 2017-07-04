@@ -25,7 +25,7 @@ module Abyss
 			https://git.oschina.net/abyssroger/dotsets/tree/master/AbyssFramework/EmailNotification
 
 			☞更新内容: 
-			测试抄送,刚刚全部发送了又抄送了！？
+			Fix 正式服/测试服 配置未正确
 
 			☞以下为近期十条提交记录:
 
