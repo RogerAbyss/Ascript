@@ -1,6 +1,13 @@
 module Abyss
 	module Build
 		module Config
+
+			# match git 地址
+			MATCH_GIT = "git@git.oschina.net:abyssroger/ppmatch.git"
+
+			# App Idendifier集合
+			Idendifiers = ["com.XilianApp.zgxl","com.zgxl.app","com.zgxl.xiyipo","com.zgxl.xiyipoCQ"]
+
 			# 工程目录
 			# name => 显示的名字
 			# path => 工程路径
@@ -25,7 +32,6 @@ module Abyss
 			https://git.oschina.net/abyssroger/dotsets/tree/master/AbyssFramework/EmailNotification
 
 			☞更新内容: 
-			Fix 正式服/测试服 配置未正确
 
 			☞以下为近期十条提交记录:
 

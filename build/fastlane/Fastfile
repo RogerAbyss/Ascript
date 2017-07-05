@@ -1,56 +1,51 @@
 fastlane_version "2.43.0"
 default_platform :ios
 
+require '~/Desktop/script/build/config/config.rb'
+
 platform :ios do
 
 	before_all do
-		git_pull
-		pod_update
+	end
+
+	desc '仅用于测试'
+	lane :devolop_env do |options|
+	end
+
+	desc '测试版,上传Fir'
+	lane :test do |options|
+		test_do(options)
+	end
+
+	desc '预发布,上传Fir'
+	lane :beta do |options|
+		beta_do(options)
+	end
+
+	desc '检查工程(依赖、证书等)'
+	lane :refresh do |options|
+		refresh_do(options)
+	end
+
+	desc '正式版,上传Apptore'
+	lane :release do |options|
+		release_do(options)
+  	end
+
+	desc '管理员调整工程(依赖、证书等)'
+	lane :setting do |options|
+		setting_do(options)
+	end
+
+	after_all do
 	end
 
 	####################################################################################################
 	####################################################################################################
+	private_lane :test_do do |options|
 
-	desc '正式版,上传Apptore'
-	lane :release do |options|
-
-		scheme				= options[:scheme]
-		outputPath		 	= options[:out]
-		projectPath			= options[:project]
-
-		version    			= options[:version]
-		build 				= options[:build]
-
-		output_name 		= "#{scheme}_#{Time.now.strftime('%H%M')}.ipa"
-		plist_drectory      = "#{projectPath}/#{scheme}/info.plist"
-		tmp				 	= "#{projectPath}/fastlane/tmp"
-		workspace		    = "#{projectPath}/#{scheme}.xcworkspace"
-		
-   	 	increment_build_number
-   	 	increment_version_number
-
-   	 	gym(
-   	 		workspace: workspace,
-   	 		scheme: scheme, 
-   	 		clean: true, 
-   	 		output_directory: outputPath,
-   	 		output_name: output_name, 
-   	 		export_method: 'app-store',
-   	 		configuration: "Release"
-   	 		)
-
-   	 	deliver(force: false, skip_metadata: true, skip_screenshots: true)
-   	 	email(mode:"release",scheme:scheme)
-
-   	 	git_add(path: '.')
-    	git_commit(path: '.', message: "自动发布 自动增长了版本号")
-  	end
-
-  	####################################################################################################
-  	####################################################################################################
-
-	desc '测试版,上传Fir'
-	lane :test do |options|
+		git_pull
+		pod_update
 
 		scheme				= options[:scheme]
 		outputPath		 	= options[:out]
@@ -72,7 +67,7 @@ platform :ios do
    	 		workspace: workspace,
    	 		scheme: scheme, 
    	 		clean: true, 
-   	 		output_directory: outputPath,
+   	 		output_directory: outputPath + "/test",
    	 		output_name: output_name, 
    	 		export_method: 'ad-hoc',
    	 		configuration: "Debug"
@@ -85,13 +80,11 @@ platform :ios do
    	 	git_add(path: '.')
     	git_commit(path: '.', message: "自动发布 自动增长了版本号")
 	end
+	private_lane :beta_do do |options|
 
-	####################################################################################################
-	####################################################################################################
+		git_pull
+		pod_update
 
-	desc '预发布,上传Fir'
-	lane :beta do |options|
-		
 		scheme				= options[:scheme]
 		outputPath		 	= options[:out]
 		projectPath			= options[:project]
@@ -112,7 +105,7 @@ platform :ios do
    	 		workspace: workspace,
    	 		scheme: scheme, 
    	 		clean: true, 
-   	 		output_directory: outputPath,
+   	 		output_directory: outputPath + "/beta",
    	 		output_name: output_name, 
    	 		export_method: 'ad-hoc',
    	 		configuration: "Release"
@@ -125,58 +118,84 @@ platform :ios do
    	 	git_add(path: '.')
     	git_commit(path: '.', message: "自动发布 自动增长了版本号")
 	end
+	private_lane :release_do do |options|
 
-	####################################################################################################
-	####################################################################################################
+		pod_update
 
-	desc '检查工程(依赖、证书等)'
-	lane :refresh do |options|
+		scheme				= options[:scheme]
+		outputPath		 	= options[:out]
+		projectPath			= options[:project]
+
+		version    			= options[:version]
+		build 				= options[:build]
+
+		output_name 		= "#{scheme}_#{Time.now.strftime('%H%M')}.ipa"
+		plist_drectory      = "#{projectPath}/#{scheme}/info.plist"
+		tmp				 	= "#{projectPath}/fastlane/tmp"
+		workspace		    = "#{projectPath}/#{scheme}.xcworkspace"
+		
+   	 	increment_build_number
+   	 	increment_version_number
+
+   	 	gym(
+   	 		workspace: workspace,
+   	 		scheme: scheme, 
+   	 		clean: true, 
+   	 		output_directory: outputPath + "/release",
+   	 		output_name: output_name, 
+   	 		export_method: 'app-store',
+   	 		configuration: "Release"
+   	 		)
+
+   	 	deliver(force: false, skip_metadata: true, skip_screenshots: true)
+   	 	email(mode:"release",scheme:scheme)
+
+   	 	git_add(path: '.')
+    	git_commit(path: '.', message: "自动发布 自动增长了版本号")
+	end
+	private_lane :refresh_do do |options|
+
 		git_pull
 		cocoapods
 
 		match(
 			type:"appstore",
-			git_url:"git@git.oschina.net:abyssroger/ppmatch.git",
+			git_url:Abyss::Build::Config::MATCH_GIT,
 			readonly: true,
 		)
 		match(
 			type:"adhoc",
-			git_url:"git@git.oschina.net:abyssroger/ppmatch.git",
+			git_url:Abyss::Build::Config::MATCH_GIT,
 			readonly: true,
 		)
 		match(
 			type:"development",
-			git_url:"git@git.oschina.net:abyssroger/ppmatch.git",
+			git_url:Abyss::Build::Config::MATCH_GIT,
 			readonly: true,
 		)
 	end
+	private_lane :setting_do do |options|
 
-
-	####################################################################################################
-	####################################################################################################
-
-	desc '管理员调整工程(依赖、证书等)'
-	lane :setting do |options|
 		git_pull
 		cocoapods
 
 		match(
 			type:"appstore",
-			git_url:"git@git.oschina.net:abyssroger/ppmatch.git",
+			git_url:Abyss::Build::Config::MATCH_GIT,
 			force_for_new_devices: true,
-			app_identifier:["com.XilianApp.zgxl","com.zgxl.app","com.zgxl.xiyipo","com.zgxl.xiyipoCQ"],
+			app_identifier:Abyss::Build::Config::Idendifiers,
 		)
 		match(
 			type:"adhoc",
-			git_url:"git@git.oschina.net:abyssroger/ppmatch.git",
+			git_url:Abyss::Build::Config::MATCH_GIT,
 			force_for_new_devices: true,
-			app_identifier:["com.XilianApp.zgxl","com.zgxl.app","com.zgxl.xiyipo","com.zgxl.xiyipoCQ"],
+			app_identifier:Abyss::Build::Config::Idendifiers,
 		)
 		match(
 			type:"development",
-			git_url:"git@git.oschina.net:abyssroger/ppmatch.git",
+			git_url:Abyss::Build::Config::MATCH_GIT,
 			force_for_new_devices: true,
-			app_identifier:["com.XilianApp.zgxl","com.zgxl.app","com.zgxl.xiyipo","com.zgxl.xiyipoCQ"],
+			app_identifier:Abyss::Build::Config::Idendifiers,
 		)
 	end
 end
