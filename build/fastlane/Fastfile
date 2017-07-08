@@ -63,11 +63,12 @@ platform :ios do
    	 	increment_build_number
    	 	increment_version_number
 
+   	 	outputPath_real 	= outputPath + "/test"
    	 	gym(
    	 		workspace: workspace,
    	 		scheme: scheme, 
    	 		clean: true, 
-   	 		output_directory: outputPath + "/test",
+   	 		output_directory: outputPath_real,
    	 		output_name: output_name, 
    	 		export_method: 'ad-hoc',
    	 		configuration: "Debug"
@@ -101,11 +102,12 @@ platform :ios do
    	 	increment_build_number
    	 	increment_version_number
 
+   	 	outputPath_real 	= outputPath + "/beta"
    	 	gym(
    	 		workspace: workspace,
    	 		scheme: scheme, 
    	 		clean: true, 
-   	 		output_directory: outputPath + "/beta",
+   	 		output_directory: outputPath_real,
    	 		output_name: output_name, 
    	 		export_method: 'ad-hoc',
    	 		configuration: "Release"
@@ -137,11 +139,12 @@ platform :ios do
    	 	increment_build_number
    	 	increment_version_number
 
+   	 	outputPath_real		= outputPath + "/release"
    	 	gym(
    	 		workspace: workspace,
    	 		scheme: scheme, 
    	 		clean: true, 
-   	 		output_directory: outputPath + "/release",
+   	 		output_directory: outputPath_real,
    	 		output_name: output_name, 
    	 		export_method: 'app-store',
    	 		configuration: "Release"
