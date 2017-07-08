@@ -75,7 +75,7 @@ platform :ios do
    	 		)
 
    	 	msg = "[自动上传v2.0],debug模式"
-   	 	system "fir publish #{outputPath}/#{output_name} -T #{fir_token} -c #{msg}"
+   	 	system "fir publish #{outputPath_real}/#{output_name} -T #{fir_token} -c #{msg}"
    	 	email(mode:"debug",scheme:scheme)
 
    	 	git_add(path: '.')
@@ -114,7 +114,7 @@ platform :ios do
    	 		)
 
    	 	msg = "[自动上传v2.0],beta模式"
-   	 	system "fir publish #{outputPath}/#{output_name} -T #{fir_token} -c #{msg}"
+   	 	system "fir publish #{outputPath_real}/#{output_name} -T #{fir_token} -c #{msg}"
    	 	email(mode:"beta",scheme:scheme)
 
    	 	git_add(path: '.')
