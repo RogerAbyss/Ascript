@@ -1,6 +1,5 @@
 # Project Choose ========================================
 require File.dirname(__FILE__)+'/config/config.rb'
-require "~/Desktop/Abyss/config_private.rb"
 
 puts "\n\n\n\n\n\n"
 puts "\033[31m☞请选择你要编译的项目？\n\033[0m"

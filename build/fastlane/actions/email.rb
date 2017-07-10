@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'mail' 
-require '~/Desktop/Abyss/config_private.rb'
-require '~/Desktop/script/build/config/config.rb'
+require File.dirname(__FILE__)+'/../../config/config.rb'
 
 module Fastlane
   module Actions

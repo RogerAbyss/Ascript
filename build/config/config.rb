@@ -26,6 +26,7 @@ module Abyss
 							"51568488@qq.com","15922883743@163.com","610447442@qq.com","349470694@qq.com",
 							# "huangxing_email@sina.com","1918130@qq.com",
 						]
+			
 			# 邮件内容
 			EMAIL_CONTENT = "
 			☞此页面提供更多帮助: 
