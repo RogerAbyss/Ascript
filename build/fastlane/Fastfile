@@ -37,6 +37,11 @@ platform :ios do
 		setting_do(options)
 	end
 
+	desc '配置Xcode插件'
+	lane :plugin do |options|
+		plugin_do(options)
+	end
+
 	after_all do
 	end
 
@@ -200,6 +205,15 @@ platform :ios do
 			force_for_new_devices: true,
 			app_identifier:Abyss::Build::Config::Idendifiers,
 		)
+	end
+
+	private_lane :plugin_do do |options|
+
+		for plugin in Abyss::Build::Config::PLUGIN
+			puts "I will install plugin from github:${plugin}"
+			install_xcode_plugin(github:plugin)
+		end
+		
 	end
 end
 
