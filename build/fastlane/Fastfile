@@ -1,8 +1,6 @@
 fastlane_version "2.43.0"
 default_platform :ios
 
-require '~/Desktop/script/build/config/config.rb'
-
 platform :ios do
 
 	before_all do
@@ -184,32 +182,37 @@ platform :ios do
 	end
 	private_lane :setting_do do |options|
 
+		matchUrl	 	= options[:matchUrl]
+		idendifiers		= options[:idendifiers]
+
 		git_pull
 		cocoapods
 
 		match(
 			type:"appstore",
-			git_url:Abyss::Build::Config::MATCH_GIT,
+			git_url:matchUrl,
 			force_for_new_devices: true,
-			app_identifier:Abyss::Build::Config::Idendifiers,
+			app_identifier:idendifiers,
 		)
 		match(
 			type:"adhoc",
-			git_url:Abyss::Build::Config::MATCH_GIT,
+			git_url:matchUrl,
 			force_for_new_devices: true,
-			app_identifier:Abyss::Build::Config::Idendifiers,
+			app_identifier:idendifiers,
 		)
 		match(
 			type:"development",
-			git_url:Abyss::Build::Config::MATCH_GIT,
+			git_url:matchUrl,
 			force_for_new_devices: true,
-			app_identifier:Abyss::Build::Config::Idendifiers,
+			app_identifier:idendifiers,
 		)
 	end
 
 	private_lane :plugin_do do |options|
 
-		for plugin in Abyss::Build::Config::PLUGIN
+		plugins		= options[:plugins]
+
+		for plugin in plugins
 			puts "I will install plugin from github:${plugin}"
 			install_xcode_plugin(github:plugin)
 		end

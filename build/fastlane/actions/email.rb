@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'mail' 
-require '~/Desktop/script/build/config/config.rb'
-# require File.dirname(__FILE__)+'/../../config/config.rb'
+require "yaml"
 
 module Fastlane
   module Actions
@@ -11,17 +10,21 @@ module Fastlane
         mode        = params[:mode]
         scheme      = params[:scheme]
 
+        # Replace Me
+        config      = YAML.load_file('/Users/abyss/Desktop/script/build/config/config.yml')
+        proviteConfig = YAML.load_file('/Users/abyss/Desktop/script/build/config/private/config.yml')
+
         title      = "#{scheme}.#{mode}发布了！"
 
-        Actions.sh "git log --graph  --abbrev-commit --pretty=format:'%s    - %an(%cr)' -10 >report-git.txt"
+        Actions.sh "git log --graph  --abbrev-commit --pretty=format:'%s    - %an(%cr)' -30 >report-git.txt"
         file = File.read("report-git.txt")
 
         smtp = {
           :address => 'smtp.qq.com', 
           :port => 25, 
           :domain => 'qq.com', 
-          :user_name => Abyss::Build::Config::QQ, 
-          :password => Abyss::Build::Config::EMAIL_QQ_TOKEN,
+          :user_name => config["Email"]["admin"]["sender"], 
+          :password => proviteConfig["Email"]["admin"]["token"],
           :enable_starttls_auto => true,
           :openssl_verify_mode => 'none', 
         }
@@ -29,11 +32,11 @@ module Fastlane
         Mail.defaults { delivery_method :smtp, smtp}
 
         mail = Mail.new do
-          from Abyss::Build::Config::QQ + '@qq.com'
-          to Abyss::Build::Config::EMAIL_SENDER
-          cc Abyss::Build::Config::EMAIL_CC
+          from config["Email"]["admin"]["sender"] + '@qq.com'
+          to config["Email"]["receiver"]
+          cc config["Email"]["copy"]
           subject title
-          body Abyss::Build::Config::EMAIL_CONTENT + file
+          body config["Email"]["content"] + file
         end
 
         mail.deliver!
