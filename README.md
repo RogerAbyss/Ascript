@@ -3,13 +3,19 @@
 一个很懒的程序员的脚本集。
 A lazy programmer`s scripts.
 
+
 [TOC]
 ## build
 
-关于自动化构建的脚本(ruby+shell)。
-主要基于fastlane实现，可以结合Docker+Kenkins自己部署整个软件从构建到测试的反复迭代过程。
+- [x] IOS自动构建项目(pod install/git pull/version&build increment/build)
+- [x] 分类管理历史包备份
+- [x] 分发Appstore与各个平台
+- [x] 邮件通知
+- [ ] Android支持
 
-[fastlane文档](https://docs.fastlane.tools/actions/)
+**仅仅执行一条‘build’**
+
+![build-w500](build/info/hello.png)
 
 ### Function(功能)
 

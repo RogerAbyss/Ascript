@@ -1,7 +1,14 @@
 # build
 
-从索引项目到编译打包备份,到发布到各个平台与分发测试以及邮件通知。
-仅仅执行一条‘build’。
+- [x] IOS自动构建项目(pod install/git pull/version&build increment/build)
+- [x] 分类管理历史包备份
+- [x] 分发Appstore与各个平台
+- [x] 邮件通知
+- [ ] Android支持
+
+**仅仅执行一条‘build’**
+
+![build-w500](info/hello.png)
 
 [TOC]
 ## Useage
