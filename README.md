@@ -16,3 +16,7 @@ A lazy programmer`s scripts.
 **仅仅执行一条‘build’**
 
 ![build-w500](build/info/hello.png)
+
+## LICENSE
+
+AScript is released under the MIT license. See LICENSE for details.
