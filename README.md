@@ -1,7 +1,7 @@
 # AScript (Abyss`s Script)
 
 一个很懒的程序员的脚本集。
-A lazy programmer`s scripts.
+A lazy IOS programmer`s scripts.
 
 
 [TOC]
