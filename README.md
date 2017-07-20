@@ -17,6 +17,8 @@ A lazy programmer`s scripts.
 
 ## vs fastlane
 
+build目前是基于fastlane的，相比于直接使用fastlane你有以下优点:
+
 - [x] 定制化的lane模块,常用功能直接使用
 - [x] 同时管理多个项目
 - [x] 适合国内行情(email使用的QQ邮箱,三方平台是fir.im,pod install采用--no-repo-update)
