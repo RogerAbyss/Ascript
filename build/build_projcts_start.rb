@@ -3,8 +3,16 @@
 
 require "yaml"
 
-puts "\n\n\n\n\n\n"
-puts "\033[31m☞请选择你要编译的项目？\n\033[0m"
+puts "\033[32m 　　　＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+彡　 _／ ⌒ ⌒ 
+　　/)) (●) (●) 　ヽ	 	what are u saying?
+　 ｜∩　(_人_)　 |     	 	\033[0m\033[31m☞it`s Ascipt!\033[0m\033[32m
+　 / ノ､＿ヽノ＿ノ￣) 		I`m Abyss!
+　/ /　　　　　 /ﾌ_/ 
+　L＿／＼　　　 ＼(	＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿\033[0m"
+
+
+puts "\n\033[31m☞Now,Choose your project to build？\n\033[0m"
 
 # 输出路径
 out = "/Users/abyss/Desktop/outputs/#{Time.now.strftime('%m%d')}"
