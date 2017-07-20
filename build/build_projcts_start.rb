@@ -34,6 +34,7 @@ for proj in projects
 	count = count + 1
 end
 
+puts "\n请输入:"
 tag = gets.chomp
 
 # Project Choose ========================================
