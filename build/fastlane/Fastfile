@@ -35,7 +35,7 @@ platform :ios do
 		setting_do(options)
 	end
 
-	desc '配置Xcode插件'
+	desc '配置Xcode插件(需要破解xcode)'
 	lane :plugin do |options|
 		plugin_do(options)
 	end
@@ -44,19 +44,15 @@ platform :ios do
 	end
 
 	####################################################################################################
+	# Normal (For Jenkins)
 	####################################################################################################
-	private_lane :test_do do |options|
 
-		git_pull
-		pod_update
+	private_lane :test_normal do |options|
 
 		scheme				= options[:scheme]
 		outputPath		 	= options[:out]
 		projectPath			= options[:project]
 		fir_token			= options[:fir_token]
-
-		version    			= options[:version]
-		build 				= options[:build]
 
 		output_name 		= "#{scheme}_#{Time.now.strftime('%H%M')}.ipa"
 		plist_drectory      = "#{projectPath}/#{scheme}/info.plist"
@@ -79,23 +75,15 @@ platform :ios do
 
    	 	msg = "[自动上传v2.0],debug模式"
    	 	system "fir publish #{outputPath_real}/#{output_name} -T #{fir_token} -c #{msg}"
-   	 	email(mode:"debug",scheme:scheme)
-
-   	 	git_add(path: '.')
-    	git_commit(path: '.', message: "自动发布 自动增长了版本号")
 	end
-	private_lane :beta_do do |options|
 
-		git_pull
-		pod_update
+
+	private_lane :beta_normal do |options|
 
 		scheme				= options[:scheme]
 		outputPath		 	= options[:out]
 		projectPath			= options[:project]
 		fir_token			= options[:fir_token]
-
-		version    			= options[:version]
-		build 				= options[:build]
 
 		output_name 		= "#{scheme}_#{Time.now.strftime('%H%M')}.ipa"
 		plist_drectory      = "#{projectPath}/#{scheme}/info.plist"
@@ -118,21 +106,13 @@ platform :ios do
 
    	 	msg = "[自动上传v2.0],beta模式"
    	 	system "fir publish #{outputPath_real}/#{output_name} -T #{fir_token} -c #{msg}"
-   	 	email(mode:"beta",scheme:scheme)
-
-   	 	git_add(path: '.')
-    	git_commit(path: '.', message: "自动发布 自动增长了版本号")
 	end
-	private_lane :release_do do |options|
 
-		pod_update
+	private_lane :release_normal do |options|
 
 		scheme				= options[:scheme]
 		outputPath		 	= options[:out]
 		projectPath			= options[:project]
-
-		version    			= options[:version]
-		build 				= options[:build]
 
 		output_name 		= "#{scheme}_#{Time.now.strftime('%H%M')}.ipa"
 		plist_drectory      = "#{projectPath}/#{scheme}/info.plist"
@@ -154,36 +134,74 @@ platform :ios do
    	 		)
 
    	 	deliver(force: false, skip_metadata: true, skip_screenshots: true)
+	end
+
+	####################################################################################################
+	# Ascript Support
+	# Ascript的 lane在原有基础上有新加的参数
+	####################################################################################################
+
+	private_lane :test_do do |options|
+
+		git_pull
+		pod_update
+
+		test_normal(options)
+   	 	email(mode:"debug",scheme:scheme)
+
+   	 	git_add(path: '.')
+    	git_commit(path: '.', message: "自动发布 自动增长了版本号")
+	end
+
+
+	private_lane :beta_do do |options|
+
+		git_pull
+		pod_update
+
+		beta_normal(options)
+   	 	email(mode:"beta",scheme:scheme)
+
+   	 	git_add(path: '.')
+    	git_commit(path: '.', message: "自动发布 自动增长了版本号")
+	end
+
+	private_lane :release_do do |options|
+
+		pod_update
+
+		release_normal(options)
    	 	email(mode:"release",scheme:scheme)
 
    	 	git_add(path: '.')
     	git_commit(path: '.', message: "自动发布 自动增长了版本号")
 	end
+
 	private_lane :refresh_do do |options|
 
-		git_pull
-		cocoapods
+		matchUrl = options[:matchUrl]
 
 		match(
-			type:"appstore",
-			git_url:Abyss::Build::Config::MATCH_GIT,
+			type: "appstore",
+			git_url: matchUrl,
 			readonly: true,
 		)
 		match(
-			type:"adhoc",
-			git_url:Abyss::Build::Config::MATCH_GIT,
+			type: "adhoc",
+			git_url: matchUrl,
 			readonly: true,
 		)
 		match(
-			type:"development",
-			git_url:Abyss::Build::Config::MATCH_GIT,
+			type: "development",
+			git_url: matchUrl,
 			readonly: true,
 		)
 	end
+
 	private_lane :setting_do do |options|
 
-		matchUrl	 	= options[:matchUrl]
-		idendifiers		= options[:idendifiers]
+		matchUrl = options[:matchUrl]
+		idendifiers	= options[:idendifiers]
 
 		git_pull
 		cocoapods
@@ -207,6 +225,10 @@ platform :ios do
 			app_identifier:idendifiers,
 		)
 	end
+	####################################################################################################
+	# Ascript Addition
+	# 不是必要的,一些小玩意
+	####################################################################################################
 
 	private_lane :plugin_do do |options|
 
@@ -218,6 +240,7 @@ platform :ios do
 		end
 		
 	end
+
 end
 
 platform :android do
