@@ -143,38 +143,65 @@ platform :ios do
 
 	private_lane :test_do do |options|
 
-		git_pull
-		pod_update
+		scheme = options[:scheme]
 
-		test_normal(options)
-   	 	email(mode:"debug",scheme:scheme)
+		if options[:jenkins] == true
+		then 
+			test_normal(options)
 
-   	 	git_add(path: '.')
-    	git_commit(path: '.', message: "自动发布 自动增长了版本号")
+			# 暂时,以后用jenkins
+			email(mode:"debug",scheme:scheme)
+		else
+			git_pull
+			pod_update
+
+			test_normal(options)
+   	 		email(mode:"debug",scheme:scheme)
+
+   	 		git_add(path: '.')
+    		git_commit(path: '.', message: "自动发布 自动增长了版本号")
+		end
 	end
 
 
 	private_lane :beta_do do |options|
 
-		git_pull
-		pod_update
+		scheme = options[:scheme]
 
-		beta_normal(options)
-   	 	email(mode:"beta",scheme:scheme)
+		if options[:jenkins] == true
+		then 
+			beta_normal(options)
 
-   	 	git_add(path: '.')
-    	git_commit(path: '.', message: "自动发布 自动增长了版本号")
+			# 暂时,以后用jenkins
+			email(mode:"debug",scheme:scheme)
+		else
+			git_pull
+			pod_update
+
+			beta_normal(options)
+   	 		email(mode:"beta",scheme:scheme)
+
+   	 		git_add(path: '.')
+    		git_commit(path: '.', message: "自动发布 自动增长了版本号")
+    	end
 	end
 
 	private_lane :release_do do |options|
 
-		pod_update
+		scheme = options[:scheme]
 
-		release_normal(options)
-   	 	email(mode:"release",scheme:scheme)
+		if options[:jenkins] == true
+		then
+			puts "please don`t use jenkins work on release version"
+		else
+			pod_update
 
-   	 	git_add(path: '.')
-    	git_commit(path: '.', message: "自动发布 自动增长了版本号")
+			release_normal(options)
+   	 		email(mode:"release",scheme:scheme)
+
+   	 		git_add(path: '.')
+    		git_commit(path: '.', message: "自动发布 自动增长了版本号")
+    	end
 	end
 
 	private_lane :refresh_do do |options|
@@ -232,7 +259,7 @@ platform :ios do
 
 	private_lane :plugin_do do |options|
 
-		plugins		= options[:plugins]
+		plugins = options[:plugins]
 
 		for plugin in plugins
 			puts "I will install plugin from github:${plugin}"
