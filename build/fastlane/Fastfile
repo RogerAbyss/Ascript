@@ -159,7 +159,7 @@ platform :ios do
    	 		email(mode:"debug",scheme:scheme)
 
    	 		git_add(path: '.')
-    		git_commit(path: '.', message: "自动发布 自动增长了版本号")
+    		git_commit(path: '.', message: "- Automatic version up")
 		end
 	end
 
@@ -182,7 +182,7 @@ platform :ios do
    	 		email(mode:"beta",scheme:scheme)
 
    	 		git_add(path: '.')
-    		git_commit(path: '.', message: "自动发布 自动增长了版本号")
+    		git_commit(path: '.', message: "- Automatic version up")
     	end
 	end
 
@@ -200,7 +200,7 @@ platform :ios do
    	 		email(mode:"release",scheme:scheme)
 
    	 		git_add(path: '.')
-    		git_commit(path: '.', message: "自动发布 自动增长了版本号")
+    		git_commit(path: '.', message: "- Automatic version up")
     	end
 	end
 
