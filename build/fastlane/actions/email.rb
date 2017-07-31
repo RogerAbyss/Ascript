@@ -31,12 +31,26 @@ module Fastlane
 
         Mail.defaults { delivery_method :smtp, smtp}
 
+        if mode == "release"
+
+          title = "一个新的IOS App已经成功上传Appstore!"
+          
+        mail = Mail.new do
+          from config["Email"]["admin"]["sender"] + '@qq.com'
+          to config["Email"]["receiver"]
+          cc config["Email"]["copy2"]
+          subject title
+          body config["Email"]["content"] + file
+        end
+        else
+
         mail = Mail.new do
           from config["Email"]["admin"]["sender"] + '@qq.com'
           to config["Email"]["receiver"]
           cc config["Email"]["copy"]
           subject title
           body config["Email"]["content"] + file
+        end
         end
 
         mail.deliver!
