@@ -13,6 +13,7 @@ puts "\033[32m 　　　＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿�
 
 
 puts "\n\033[31m☞Now,Choose your project to build？\n\033[0m"
+system "export FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT=120"
 
 # 输出路径
 out = "/Users/abyss/Desktop/outputs/#{Time.now.strftime('%m%d')}"
@@ -42,14 +43,19 @@ tag = gets.chomp
 # Deel 
 
 projectTag = 0
-while (tag != "1" && tag != "2" && tag != "3")
-	tag = gets.chomp
+if tag.to_i > 0 && tag.to_i < count
+	projectTag = tag.to_i - 1;
 end
 
-if tag == "1" then projectTag = 0
-elsif tag == "2" then projectTag = 1
-elsif tag == "3" then projectTag = 2	
-end
+# while (tag != "1" && tag != "2" && tag != "3" && tag != "4")
+# 	tag = gets.chomp
+# end
+
+# if tag == "1" then projectTag = 0
+# elsif tag == "2" then projectTag = 1
+# elsif tag == "3" then projectTag = 2	
+# elsif tag == "4" then projectTag = 3
+# end
 
 # Start Build
 
