@@ -28,5 +28,4 @@ echo 检查fastlane环境...
 # fastlane Env
 fastlane env
 
-ls
 echo '环境检查完毕'
