@@ -65,7 +65,7 @@ path = projects[projectTag]["path"]
 scheme = projects[projectTag]["scheme"]
 
 if isJenkins
-	shell = "cd #{path} && fastlane #{lane} jenkins:true scheme:#{scheme} out:#{out} project:#{path} fir_token:#{fir_token} matchUrl:'#{matchUrl}' idendifiers:'#{idendifiers}' plugins:'#{plugins}'"
+	shell = "cd #{path} && fastlane #{lane} scheme:#{scheme} out:#{out} project:#{path} fir_token:#{fir_token} matchUrl:'#{matchUrl}' idendifiers:'#{idendifiers}' plugins:'#{plugins}'"
 	puts "\033[31m☞准备执行:" + shell + "\033[0m"
 	puts "☞\n"
 	system shell 
