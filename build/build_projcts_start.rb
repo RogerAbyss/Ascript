@@ -36,6 +36,14 @@ isJenkins = false;
 
 puts tag
 puts lane
+
+# Deel 
+count = 1
+for proj in projects
+	puts "#{count.to_int}.==>"+proj["name"]
+	count = count + 1
+end
+
 if tag.to_i > 0
 	isJenkins = true
 else
@@ -46,13 +54,6 @@ end
 # setting ========================================
 
 # Project Choose ========================================
-
-# Deel 
-count = 1
-for proj in projects
-	puts "#{count.to_int}.==>"+proj["name"]
-	count = count + 1
-end
 
 projectTag = 0
 if tag.to_i > 0 && tag.to_i < count
