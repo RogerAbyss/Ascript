@@ -1,11 +1,8 @@
 Match:
-  url:
-    - git@git.oschina.net:abyssroger/ppmatch.git
-  idendifiers:
-    - com.XilianApp.zgxl
-    - com.zgxl.app
-    - com.zgxl.xiyipo
-    - com.zgxl.xiyipoCQ
+  url: git@gitee.com:rogerabyss/PPMatch-zgxl.git
+  # 配置无法运行
+  # idendifiers: ["com.XilianApp.zgxl", "com.zgxl.app", "com.zgxl.xiyipo", "com.zgxl.xiyipoCQ"]
+  idendifiers: false
 
 Projects:
   - name: Xilian New
