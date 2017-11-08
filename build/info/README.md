@@ -1,15 +1,19 @@
-# Info about Email
+# 下载测试App
+
+## 中国囍联(old) for IOS&Android
+
+![喜联App-w200](old.png)
+
+## 中国囍联(new) for IOS
+
+![重构App-w200](new.png)
+
+
+# Info About Email
 
 您收到了关于来自于自动Ascript/build。
 
 [Ascript/build v2.1.0.beta](https://git.oschina.net/abyssroger/script/build)
-
-您可以通过以下链接下载测试app
-
-**重构App**
-![重构App-w200](new.png)
-**喜联App**
-![喜联App-w200](old.png)
 
 [TOC]
 
