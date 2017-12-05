@@ -75,6 +75,7 @@ platform :ios do
 
    	 	msg = "[自动上传v2.0],debug模式"
    	 	system "fir publish #{outputPath_real}/#{output_name} -T #{fir_token} -c #{msg}"
+   	 	system "cp #{outputPath_real}/#{output_name} #{projectPath}/build/"
 	end
 
 
