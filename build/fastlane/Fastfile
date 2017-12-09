@@ -8,6 +8,7 @@ platform :ios do
 
 	desc '仅用于测试'
 	lane :devolop_env do |options|
+		jazzy()
 	end
 
 	desc '测试版,上传Fir'
@@ -33,11 +34,6 @@ platform :ios do
 	desc '管理员调整工程(依赖、证书等)'
 	lane :setting do |options|
 		setting_do(options)
-	end
-
-	desc '配置Xcode插件(需要破解xcode)'
-	lane :plugin do |options|
-		plugin_do(options)
 	end
 
 	after_all do
@@ -252,22 +248,6 @@ platform :ios do
 			app_identifier:idendifiers,
 		)
 	end
-	####################################################################################################
-	# Ascript Addition
-	# 不是必要的,一些小玩意
-	####################################################################################################
-
-	private_lane :plugin_do do |options|
-
-		plugins = options[:plugins]
-
-		for plugin in plugins
-			puts "I will install plugin from github:${plugin}"
-			install_xcode_plugin(github:plugin)
-		end
-		
-	end
-
 end
 
 platform :android do

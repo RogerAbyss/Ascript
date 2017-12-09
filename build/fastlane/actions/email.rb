@@ -41,6 +41,7 @@ module Fastlane
           cc config["Email"]["copy2"]
           subject title
           body config["Email"]["content"] + file
+          charset = "UTF-8"
         end
         else
 
@@ -50,9 +51,12 @@ module Fastlane
           cc config["Email"]["copy"]
           subject title
           body config["Email"]["content"] + file
+          charset = "UTF-8"
         end
         end
 
+        mail.charset = 'UTF-8'
+        mail.content_transfer_encoding = '8bit'
         mail.deliver!
 
         UI.current.log.info "Successfully send e-mial ⬆️ ".green

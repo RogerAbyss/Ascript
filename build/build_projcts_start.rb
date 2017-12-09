@@ -26,7 +26,6 @@ projects = config["Projects"]
 fir_token = config["Publish"]["fir"]["token"]
 matchUrl = config["Match"]["url"]
 idendifiers = config["Match"]["idendifiers"]
-plugins = config["Plugin"]
 
 # Jenkins
 
@@ -66,14 +65,14 @@ path = projects[projectTag]["path"]
 scheme = projects[projectTag]["scheme"]
 
 if isJenkins
-	shell = "cd #{path} && fastlane #{lane} scheme:#{scheme} out:#{out} project:#{path} fir_token:#{fir_token} matchUrl:'#{matchUrl}' idendifiers:'#{idendifiers}' plugins:'#{plugins}'"
+	shell = "cd #{path} && bundle exec fastlane #{lane} scheme:#{scheme} out:#{out} project:#{path} fir_token:#{fir_token} matchUrl:'#{matchUrl}' idendifiers:'#{idendifiers}'"
 	puts "\033[31m☞准备执行:" + shell + "\033[0m"
 	puts "☞\n"
 	system shell 
 else
 	# Make Shell
 	# system "cd #{path}"
-	shell = "cd #{path} && fastlane scheme:#{scheme} out:#{out} project:#{path} fir_token:#{fir_token} matchUrl:'#{matchUrl}' idendifiers:'#{idendifiers}' plugins:'#{plugins}'"
+	shell = "cd #{path} && bundle exec fastlane scheme:#{scheme} out:#{out} project:#{path} fir_token:#{fir_token} matchUrl:'#{matchUrl}' idendifiers:'#{idendifiers}'"
 	puts "\033[31m☞准备执行:" + shell + "\033[0m"
 	puts "☞\n"
 	system shell 

@@ -14,9 +14,9 @@ Projects:
   - name: Xiyipo
     path: /Users/abyss/Desktop/Dev/Xiyipo/Xiyipo/Xiyipo
     scheme: Xiyipo
-  - name: try
-    path: /Users/abyss/Desktop/Resposities/JenkinsTry
-    scheme: JenkinsTry
+  - name: SwiftBase
+    path: /Users/abyss/Desktop/Dev/SwiftBase
+    scheme: SwiftBase
 
 Email:
   receiver: 
@@ -53,11 +53,3 @@ Email:
 Publish:
   fir:
     token: e9bf520535dbb08e8aef052cf6aa5558
-
-Plugin:
-  - https://github.com/wangshengjia/VWInstantRun/archive/master.zip 
-  - https://github.com/cyanzhong/xTextHandler/archive/master.zip
-  - https://github.com/trawor/XToDo/archive/master.zip
-  - https://github.com/kattrali/cocoapods-xcode-plugin/archive/master.zip
-  - https://github.com/travisjeffery/ClangFormat-Xcode/archive/master.zip
-  - https://github.com/FuzzyAutocomplete/FuzzyAutocompletePlugin/archive/master.zip
