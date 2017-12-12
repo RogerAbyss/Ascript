@@ -43,6 +43,17 @@ module Fastlane
           body config["Email"]["content"] + file
           charset = "UTF-8"
         end
+        else if mode == "beta"
+
+          mail = Mail.new do
+          from config["Email"]["admin"]["sender"] + '@qq.com'
+          to config["Email"]["receiver"]
+          cc config["Email"]["copy2"]
+          subject title
+          body config["Email"]["content"] + file
+          charset = "UTF-8"
+        end
+
         else
 
         mail = Mail.new do

@@ -21,6 +21,7 @@ Projects:
 Email:
   receiver: 
     - roger_ren@qq.com
+  # 正式服通知
   copy:
     - 492764029@qq.com
     - 845450492@qq.com
@@ -28,6 +29,7 @@ Email:
     - 610447442@qq.com
     - 349470694@qq.com
     - 9883886@qq.com
+  # 测试服通知
   copy2:
     - 9883886@qq.com
     - 845450492@qq.com
