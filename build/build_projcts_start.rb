@@ -17,18 +17,19 @@ system "export FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT=120"
 config = YAML.load_file(File.dirname(__FILE__)+'/config/config.yml')
 projects = config["Projects"]
 
+tag = -1
 tag = ARGV[0]; 
 lane = ARGV[1];
 
 # 处理逻辑
-count = 1
+count = 0
 for proj in projects
 	puts "#{count.to_int}.==>"+proj["name"]
 	count = count + 1
 end
 
 projectTag = 0
-if tag.to_i > 0
+if tag.to_i >= 0
 	projectTag = tag.to_i
 else
 	tag = gets.chomp
@@ -41,8 +42,15 @@ end
 
 # Start Build
 path = projects[projectTag]["path"]
-system "bundle update"
-shell = "cd #{path} && bundle exec fastlane #{lane} scheme:#{scheme} out:#{out} project:#{path} fir_token:#{fir_token} matchUrl:'#{matchUrl}' idendifiers:'#{idendifiers}'"
+
+system "export TERM=xterm-256color"
+system "export LANG=en_US.UTF-8"
+system "LANG=en_US.UTF-8"
+system "export LANGUAGE=en_US.UTF-8"
+system "LANGUAGE=en_US.UTF-8"
+system "export LC_ALL=en_US.UTF-8"
+system "LC_ALL=en_US.UTF-8"
+shell = "cd #{path} && bundle update && bundle exec fastlane #{lane}"
 puts "\033[31m☞准备执行:" + shell + "\033[0m"
 puts "☞\n"
 system shell

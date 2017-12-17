@@ -1,0 +1,24 @@
+# Email配置
+
+sender "492764029@qq.com"
+manager "roger_ren@qq.com"
+token "xxx"
+reciver []
+
+for_lane :test do
+	reciver []
+	title "xx"
+	content "测试服"
+end
+
+for_lane :beta do
+	reciver []
+	title "xx"
+	content "预发布, 链接的正式服"
+end
+
+for_lane :release do
+	reciver []
+	title "xx"
+	content "正式服已经上传至app-store, 请一段时间后发布审核"
+end
