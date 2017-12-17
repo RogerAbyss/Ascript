@@ -8,11 +8,8 @@ override_lane :release do |options|
   version       = ENV["VERSION_NUMBER"]
 
 	# 更新三方库文件
-	pod_update
-
-  # 预检查, 检查了copyright一定为今年
-  # precheck
-
+  pod_update
+  
   # 修改App配置, App-Store很多不要修改！
   change
 
