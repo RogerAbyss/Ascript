@@ -50,7 +50,11 @@ system "export LANGUAGE=en_US.UTF-8"
 system "LANGUAGE=en_US.UTF-8"
 system "export LC_ALL=en_US.UTF-8"
 system "LC_ALL=en_US.UTF-8"
-shell = "cd #{path} && bundle update && bundle exec fastlane #{lane}"
+if lane == "debug"
+	shell = "cd #{path} && bundle update && bundle exec fastlane test && bundle exec fastlane beta"
+else
+	shell = "cd #{path} && bundle update && bundle exec fastlane #{lane}"
+end
 puts "\033[31m☞准备执行:" + shell + "\033[0m"
 puts "☞\n"
 system shell
